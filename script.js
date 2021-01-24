@@ -38,7 +38,7 @@ textArea.addEventListener("submit", (e) => {
             span.style.borderBottom = "2px solid black";
             // one-liner from stack overflow
             await new Promise(r => setTimeout(r, time));
-            span.style.borderBottom = "none";
+            span.style.borderBottom = "2px solid white";
         }
     });
 });
