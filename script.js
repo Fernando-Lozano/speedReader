@@ -14,6 +14,7 @@ textArea.addEventListener("submit", (e) => {
     const text = e.target[0].value;
     const wordCount = Number(e.target[1].value);
     const partials = listOfStrings(text, wordCount);
+    console.dir(partials);
     let div = document.createElement("div");
     for (let partial of partials) {
         let span = document.createElement("span");
@@ -53,7 +54,7 @@ function listOfStrings(text, splitter) {
         if (text[i] === " ") {
             spaceCount++;
         }
-        if (spaceCount === splitter) {
+        if (spaceCount === splitter || text[i] === "\n") {
             partials.push(text.substring(starter, i+1));
             starter = i + 1;
             spaceCount = 0;
@@ -62,5 +63,5 @@ function listOfStrings(text, splitter) {
             partials.push(text.substring(starter));
         }
     }
-    return partials;
+    return partials.filter(item => item !== "\n");
 }
