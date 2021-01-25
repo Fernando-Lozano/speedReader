@@ -74,7 +74,7 @@ function listOfStrings(text, splitter) {
             partials.push(text.substring(starter));
         }
     }
-    return partials.filter(item => item !== "\n");
+    return partials;
 }
 
 // content from https://www.how-to-type.com/typing-practice/quote/nonfiction/?length=long
