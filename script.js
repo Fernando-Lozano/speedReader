@@ -16,6 +16,9 @@ textArea.addEventListener("submit", async (e) => {
     if (!text) {
         let story = await getStory();
         var partials = listOfStrings(story, wordCount);
+        console.log(JSON.stringify(story));
+        console.log(story);
+        console.log(partials);
     } else {
         var partials = listOfStrings(text, wordCount);
     }
@@ -60,26 +63,29 @@ function listOfStrings(text, splitter) {
     var spaceCount = 0;
     for (let i in text) {
         i = Number(i);
-        if (text[i] === " ") {
-            spaceCount++;
-        }
-        if (spaceCount === splitter) {
-            partials.push(text.substring(starter, i+1));
-            starter = i + 1;
-            spaceCount = 0;
-        }
-        else if (text[i] === "\n") {
-            if (text[i-1] !== "\n") {
-                let subString = text.substring(starter, i+1);
-                subString = subString.slice(0, subString.length - 1);
-                partials.push(subString, "\n");
-            }
-            else {partials.push("\n")}
-            starter = i + 1;
-            spaceCount = 0;
-        }
-        else if (i === text.length - 1) {
+        if (i === text.length - 1) {
             partials.push(text.substring(starter));
+            break;
+        }
+        if (text[i] === "\n" && text[i - 1] !== "\n") {
+            partials.push(text.substring(starter, i) + " ");
+            starter = i + 1;
+        }
+        else if (text[i] === "\n" && text[i - 1] === "\n") {
+            partials.push("\n", "\n");
+            starter = i + 1;
+        }
+        else if (text[i-1] === "\n" && (text[i] === "\t" || (text[i] === " " && text[i + 1] === " "))) {
+            partials.push("\n");
+            starter = i + 1;
+        }
+        else if (text[i] === " " && text[i-1] === " ") {
+            starter = i + 1;
+            continue;
+        }
+        else if (text[i] === " ") {
+            partials.push(text.substring(starter, i + 1));
+            starter = i + 1;
         }
     }
     return partials;
