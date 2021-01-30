@@ -13,16 +13,12 @@ textArea.addEventListener("submit", async (e) => {
     // gets list of text partials
     const text = e.target[0].value;
     const wordCount = Number(e.target[1].value);
-    console.log(e.target[1].value);
     if (!text) {
         let story = await getStory();
-        console.log(story);
-        console.log(JSON.stringify(story));
         var partials = listOfStrings(story, wordCount);
     } else {
         var partials = listOfStrings(text, wordCount);
     }
-    console.log(partials);
     let div = document.createElement("div");
     for (let partial of partials) {
         if (partial === "\n") {
@@ -88,12 +84,11 @@ function listOfStrings(text, splitter) {
     }
     return partials;
 }
-
+// gets a fairy tale
 async function getStory() {
     try {
-        // # of short stories available
+        // based on number of short stories available
         let random = String(Math.floor(Math.random() * 209)).padStart(3, "0");
-        console.log(random);
         const res = await axios.get(`/GrimmFairyTales/${random}.txt`);
         return res.data;
     } catch (error) {
