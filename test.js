@@ -1,9 +1,3 @@
-axios.get("/GrimmFairyTales/000.txt")
-    .then((res) => {
-        data = res.data;
-        console.log(res.headers);
-        console.log(data.toString());
-        const newer = document.createElement("pre");
-        newer.textContent = data.toString();
-        document.body.appendChild(newer);
-    });
+var data = "Hey!\n My name is awesome.\n and i like cheese";
+var partials = data.split(" ");
+console.log(partials);
