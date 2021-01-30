@@ -12,15 +12,14 @@ textArea.addEventListener("submit", async (e) => {
     header.textContent = "Press start to begin";
     // gets list of text partials
     const text = e.target[0].value;
-    const wordCount = Number(e.target[1].value);
     if (!text) {
         let story = await getStory();
-        var partials = listOfStrings(story, wordCount);
+        var partials = listOfStrings(story);
         console.log(JSON.stringify(story));
         console.log(story);
         console.log(partials);
     } else {
-        var partials = listOfStrings(text, wordCount);
+        var partials = listOfStrings(text);
     }
     let div = document.createElement("div");
     for (let partial of partials) {
@@ -43,9 +42,10 @@ textArea.addEventListener("submit", async (e) => {
     }
 
     // listen for start
-    const speed = Number(e.target[2].value);
+    const speed = Number(e.target[1].value);
+    console.dir(speed);
     footbtns[1].addEventListener("click", async function reader() {
-        const time = (60 / speed) * wordCount * 1000
+        const time = (60 / speed) * 1000
         const spans = document.querySelectorAll("span");
         for (let span of spans) {
             span.style.borderBottom = "2px solid black";
@@ -57,10 +57,9 @@ textArea.addEventListener("submit", async (e) => {
 });
 
 // splits a text string up into substrings to a desired word count
-function listOfStrings(text, splitter) {
+function listOfStrings(text) {
     const partials = [];
     var starter = 0;
-    var spaceCount = 0;
     for (let i in text) {
         i = Number(i);
         if (i === text.length - 1) {
