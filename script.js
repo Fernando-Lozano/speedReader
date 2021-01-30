@@ -75,7 +75,7 @@ function listOfStrings(text, splitter) {
         else if (text[i] === "\n") {
             if (text[i-1] !== "\n") {
                 let subString = text.substring(starter, i+1);
-                subString = subString.slice(0, subString.length - 1) + " ";
+                subString = subString.slice(0, subString.length - 1);
                 partials.push(subString, "\n");
             }
             else {partials.push("\n")}
