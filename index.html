@@ -22,9 +22,14 @@
         display: inline-block;
         border-bottom: 2px solid white;
     }
+    #submitBtn {
+        width: 85px;
+        margin-top: 13px;
+        border-radius: 30px;
+    }
     #play {
-        width: 70px;
-        height: 70px;
+        width: 65px;
+        height: 65px;
         border-radius: 50%;
     }
     #back {
@@ -34,6 +39,9 @@
     #restart {
         border-radius: 8px 30px 30px 8px;
         width: 85px;
+    }
+    .fixed-bottom {
+        height: 81px;
     }
 </style>
 </head>
@@ -58,7 +66,7 @@
             </div>
         </div>
     </div>
-    <div class="text-center py-3 my-0 bg-dark text-white fixed-bottom" style="min-height: 70px">
+    <div class="text-center py-2 my-0 bg-dark text-white fixed-bottom">
         <button id="submitBtn" class="btn btn-info fw-bold" type="submit" form="form">Submit</button>
         <a href="/" id="back" class="btn btn-secondary footerbtns mx-1 fw-bold">Back</a>
         <button id="play" class="btn btn-info footerbtns mx-1 fw-bold"><i class="fas fa-play fa-lg"></i></button>
