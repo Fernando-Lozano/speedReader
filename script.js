@@ -46,9 +46,9 @@ async function submit(e) {
     }
     submitted = true;
     // starts reader
-    footbtns[2].addEventListener("click", reader);
+    footbtns[1].addEventListener("click", reader);
     // resets reader
-    footbtns[1].addEventListener("click", reseter);
+    footbtns[2].addEventListener("click", reseter);
 }
 textArea.addEventListener("submit", submit);
 
@@ -68,7 +68,7 @@ function reader() {
         init = false;
     }
     if (!paused) {
-        this.textContent = "Pause";
+        this.innerHTML = '<i class="fas fa-pause fa-lg"></i>';
         inte = setInterval(() => {
             if (counter > 0) spans[counter-1].style.borderBottom = "2px solid white";
             if (counter < spans.length) spans[counter].style.borderBottom = "2px solid black";
@@ -84,7 +84,7 @@ function reader() {
         }, time);
     }
     else {
-        this.textContent = "Play";
+        this.innerHTML = '<i class="fas fa-play fa-lg"></i>';
         clearInterval(inte);
     }
 };
