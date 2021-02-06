@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <title>Speed Reader</title>
 <style>
+    * {
+        font-family: 'Roboto', sans-serif;
+    }
     .footerbtns {
         display: none;
     }
@@ -17,9 +20,6 @@
         display: inline-block;
         border-bottom: 2px solid white;
     }
-    * {
-        font-family: 'Roboto', sans-serif;
-    }
 </style>
 </head>
 <body>
@@ -27,7 +27,7 @@
     <div class="container" style="margin-bottom: 80px;">
         <div class="row">
             <div class="col-12 col-md-8 offset-md-2">
-                <form class="input" action="/" method="POST">
+                <form class="input" action="/" method="POST" id="form">
                     <div class="mb-3">
                         <textarea class="form-control" name="text" id="text" cols="30" rows="10" placeholder="Leave blank to read short story!"></textarea>
                     </div>
@@ -39,14 +39,15 @@
                             <input class="form-control" type="number" name="count" id="count" min="1" value="300" required>
                         </div>
                     </div>
-                    <button class="btn btn-info fw-bold mt-3" type="submit">Submit</button>
                 </form>
             </div>
         </div>
     </div>
     <div class="text-center py-3 my-0 bg-dark text-white fixed-bottom" style="min-height: 70px">
-        <a href="/" class="btn btn-secondary footerbtns mx-1 fw-bold">Back</a>
-        <button class="btn btn-info footerbtns mx-1 fw-bold">Start</button>
+        <button id="submitBtn" class="btn btn-info fw-bold mt-3" type="submit" form="form">Submit</button>
+        <a href="/" class="btn btn-info footerbtns mx-1 fw-bold">Back</a>
+        <button class="btn btn-danger footerbtns mx-1 fw-bold">Restart</button>
+        <button class="btn btn-info footerbtns mx-1 fw-bold">Play</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./script.js"></script>

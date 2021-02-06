@@ -1,23 +1,27 @@
-const header = document.querySelector("h1");
-const textArea = document.querySelector("form");
-const inputSection = document.querySelector(".input");
-const content = document.querySelector(".col-12");
-const bottom = document.querySelector(".fixed-bottom");
-const footbtns = document.querySelectorAll(".footerbtns");
+const header = document.querySelector("h1"),
+    textArea = document.querySelector("form"),
+    inputSection = document.querySelector(".input"),
+    submitBtn = document.querySelector("#submitBtn"),
+    content = document.querySelector(".col-12"),
+    bottom = document.querySelector(".fixed-bottom"),
+    footbtns = document.querySelectorAll(".footerbtns");
 
-textArea.addEventListener("submit", async (e) => {
+let text,
+    speed,
+    submitted = false;
+
+async function submit(e) {
     e.preventDefault();
     inputSection.style.display = "none";
+    submitBtn.style.display = "none";
 
     header.textContent = "Press start to begin";
     // gets list of text partials
-    const text = e.target[0].value;
+    text = e.target[0].value;
+    speed = e.target[1].value;
     if (!text) {
         let story = await getStory();
         var partials = listOfStrings(story);
-        console.log(JSON.stringify(story));
-        console.log(story);
-        console.log(partials);
     } else {
         var partials = listOfStrings(text);
     }
@@ -40,21 +44,59 @@ textArea.addEventListener("submit", async (e) => {
     for (button of footbtns) {
         button.classList.toggle("footerbtns");
     }
+    submitted = true;
+    // starts reader
+    footbtns[2].addEventListener("click", reader);
+    // resets reader
+    footbtns[1].addEventListener("click", reseter);
+}
+textArea.addEventListener("submit", submit);
 
-    // listen for start
-    const speed = Number(e.target[1].value);
-    console.dir(speed);
-    footbtns[1].addEventListener("click", async function reader() {
-        const time = (60 / speed) * 1000
-        const spans = document.querySelectorAll("span");
-        for (let span of spans) {
-            span.style.borderBottom = "2px solid black";
-            // one-liner from stack overflow
-            await new Promise(r => setTimeout(r, time));
-            span.style.borderBottom = "2px solid white";
-        }
-    });
-});
+let init = true,
+    paused = true,
+    inte,
+    time,
+    spans,
+    reset = false;
+    counter = 0;
+
+function reader() {
+    paused = !paused;
+    if (init) {
+        time = (60 / speed) * 1000
+        spans = document.querySelectorAll("span");
+        init = false;
+    }
+    if (!paused) {
+        this.textContent = "Pause";
+        inte = setInterval(() => {
+            if (counter > 0) spans[counter-1].style.borderBottom = "2px solid white";
+            if (counter < spans.length) spans[counter].style.borderBottom = "2px solid black";
+            if (counter === spans.length) {
+                spans[counter-1].style.borderBottom = "2px solid white";
+                counter = 0;
+                init = true;
+                paused = true;
+                clearInterval(inte);
+                return;
+            }
+            counter++;
+        }, time);
+    }
+    else {
+        this.textContent = "Play";
+        clearInterval(inte);
+    }
+};
+
+function reseter() {
+    if (counter > 0) {
+        paused = true;
+        spans[counter - 1].style.borderBottom = "2px solid white";
+        counter = 0;
+        clearInterval(inte);
+    }
+}
 
 // splits a text string up into substrings to a desired word count
 function listOfStrings(text) {
