@@ -15,7 +15,6 @@ async function submit(e) {
     inputSection.style.display = "none";
     submitBtn.style.display = "none";
 
-    header.textContent = "Press start to begin";
     // gets list of text partials
     text = e.target[0].value;
     speed = e.target[1].value;

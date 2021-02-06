@@ -11,6 +11,9 @@
         integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
     <title>Speed Reader</title>
 <style>
+    html {
+        overflow-y: scroll;
+    }
     * {
         font-family: 'Roboto', sans-serif;
     }
@@ -24,7 +27,6 @@
     }
     #submitBtn {
         width: 85px;
-        margin-top: 13px;
         border-radius: 30px;
     }
     #play {
@@ -41,7 +43,7 @@
         width: 85px;
     }
     .fixed-bottom {
-        height: 81px;
+        height: 80px;
     }
 </style>
 </head>
@@ -66,7 +68,7 @@
             </div>
         </div>
     </div>
-    <div class="text-center py-2 my-0 bg-dark text-white fixed-bottom">
+    <div class="d-flex flex-row align-items-center justify-content-center py-2 my-0 bg-dark text-white fixed-bottom">
         <button id="submitBtn" class="btn btn-info fw-bold" type="submit" form="form">Submit</button>
         <a href="/" id="back" class="btn btn-secondary footerbtns mx-1 fw-bold">Back</a>
         <button id="play" class="btn btn-info footerbtns mx-1 fw-bold"><i class="fas fa-play fa-lg"></i></button>
