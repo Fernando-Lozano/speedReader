@@ -76,6 +76,7 @@ function reader() {
                 counter = 0;
                 init = true;
                 paused = true;
+                this.innerHTML = '<i class="fas fa-play fa-lg"></i>';
                 clearInterval(inte);
                 return;
             }
@@ -93,6 +94,7 @@ function reseter() {
         paused = true;
         spans[counter - 1].style.borderBottom = "2px solid white";
         counter = 0;
+        footbtns[1].innerHTML = '<i class="fas fa-play fa-lg"></i>';
         clearInterval(inte);
     }
 }
