@@ -1,10 +1,10 @@
-const header = document.querySelector("h1"),
-    textArea = document.querySelector("form"),
-    inputSection = document.querySelector(".input"),
-    submitBtn = document.querySelector("#submitBtn"),
-    content = document.querySelector(".col-12"),
-    bottom = document.querySelector(".fixed-bottom"),
-    footbtns = document.querySelectorAll(".footerbtns");
+const   header = document.querySelector("h1"),
+        textArea = document.querySelector("form"),
+        inputSection = document.querySelector(".input"),
+        submitBtn = document.querySelector("#submitBtn"),
+        content = document.querySelector(".col-12"),
+        bottom = document.querySelector(".fixed-bottom"),
+        footbtns = document.querySelectorAll(".footerbtns");
 
 let text,
     speed,
@@ -70,7 +70,7 @@ function reader() {
         this.innerHTML = '<i class="fas fa-pause fa-lg"></i>';
         inte = setInterval(() => {
             if (counter > 0) spans[counter-1].style.borderBottom = "2px solid white";
-            if (counter < spans.length) spans[counter].style.borderBottom = "2px solid black";
+            if (counter < spans.length) spans[counter].style.borderBottom = "2px solid grey";
             if (counter === spans.length) {
                 spans[counter-1].style.borderBottom = "2px solid white";
                 counter = 0;

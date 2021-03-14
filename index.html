@@ -34,6 +34,9 @@
         height: 65px;
         border-radius: 50%;
     }
+    #playIcon {
+        margin-top: 5px;
+    }
     #back {
         border-radius: 30px 8px 8px 30px;
         width: 85px;
@@ -48,8 +51,8 @@
 </style>
 </head>
 <body>
-    <h1 class="text-center py-3 mb-4 bg-dark text-info">Increase your reading speed!</h1>
-    <div class="container" style="margin-bottom: 80px;">
+    <h1 class="text-center py-4 mb-4 bg-dark text-info">Increase your reading speed!</h1>
+    <div class="container" style="margin-bottom: 100px;">
         <div class="row">
             <div class="col-12 col-md-8 offset-md-2">
                 <form class="input" action="/" method="POST" id="form">
@@ -68,10 +71,10 @@
             </div>
         </div>
     </div>
-    <div class="d-flex flex-row align-items-center justify-content-center py-2 my-0 bg-dark text-white fixed-bottom">
+    <div class="d-flex flex-row align-items-center justify-content-center py-5 my-0 bg-dark text-white fixed-bottom">
         <button id="submitBtn" class="btn btn-info fw-bold" type="submit" form="form">Submit</button>
         <a href="/" id="back" class="btn btn-secondary footerbtns mx-1 fw-bold">Back</a>
-        <button id="play" class="btn btn-info footerbtns mx-1 fw-bold"><i class="fas fa-play fa-lg"></i></button>
+        <button id="play" class="btn btn-info footerbtns mx-1 fw-bold"><i id="playIcon" class="fas fa-play fa-lg"></i></button>
         <button id="restart" class="btn btn-secondary footerbtns mx-1 fw-bold">Restart</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
