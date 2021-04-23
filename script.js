@@ -4,7 +4,8 @@ const   header = document.querySelector("h1"),
         submitBtn = document.querySelector("#submitBtn"),
         content = document.querySelector(".col-12"),
         bottom = document.querySelector(".fixed-bottom"),
-        footbtns = document.querySelectorAll(".footerbtns");
+        footbtns = document.querySelectorAll(".footerbtns"),
+        loader = document.querySelector(".loader");
 
 let text,
     speed,
@@ -12,8 +13,8 @@ let text,
 
 async function submit(e) {
     e.preventDefault();
-    inputSection.style.display = "none";
-    submitBtn.style.display = "none";
+    inputSection.style.display = "none"; // hides form
+    submitBtn.style.display = "none"; // hides submit button
 
     // gets list of text partials
     text = e.target[0].value;
@@ -24,21 +25,33 @@ async function submit(e) {
     } else {
         var partials = listOfStrings(text);
     }
+    console.log(partials); // temp
     let div = document.createElement("div");
-    for (let partial of partials) {
-        if (partial === "\n") {
+    content.appendChild(div);
+
+    if (partials.length > 500) {
+        loader.classList.toggle("d-none");
+        await new Promise(res => {
+            setTimeout(res, 100);
+        });
+    }
+    for (let i = 0; i < partials.length; i++) {
+        if (partials[i] === "\n") {
             let br = document.createElement("br");
             div.appendChild(br);
         }
         else {
             let span = document.createElement("span");
-            span.textContent = partial;
+            span.textContent = partials[i];
             div.appendChild(span);
         }
+        if (i < partials.length-1) {
+            div.innerHTML += " ";
+        }
     }
+    loader.classList.add("d-none");
     div.setAttribute("class", "mb-3");
 
-    content.appendChild(div);
 
     for (button of footbtns) {
         button.classList.toggle("footerbtns");
@@ -110,7 +123,8 @@ function listOfStrings(text) {
             break;
         }
         if (text[i] === "\n" && text[i - 1] !== "\n") {
-            partials.push(text.substring(starter, i) + " ");
+            // partials.push(text.substring(starter, i) + " ");
+            partials.push(text.substring(starter, i));
             starter = i + 1;
         }
         else if (text[i] === "\n" && text[i - 1] === "\n") {
@@ -126,7 +140,8 @@ function listOfStrings(text) {
             continue;
         }
         else if (text[i] === " ") {
-            partials.push(text.substring(starter, i + 1));
+            // partials.push(text.substring(starter, i + 1));
+            partials.push(text.substring(starter, i));
             starter = i + 1;
         }
     }
