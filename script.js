@@ -29,7 +29,7 @@ async function submit(e) {
     let div = document.createElement("div");
     content.appendChild(div);
 
-    if (partials.length > 500) {
+    if (partials.length > 1400) {
         loader.classList.toggle("d-none");
         await new Promise(res => {
             setTimeout(res, 100);
@@ -43,10 +43,7 @@ async function submit(e) {
         else {
             let span = document.createElement("span");
             span.textContent = partials[i];
-            div.appendChild(span);
-        }
-        if (i < partials.length-1) {
-            div.innerHTML += " ";
+            div.append(span, " ");
         }
     }
     loader.classList.add("d-none");
