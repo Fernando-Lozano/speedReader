@@ -1,6 +1,6 @@
 # Speed Reader - Learn to read faster
 
-![Design preview for the Chat app CSS illustration coding challenge](./images/screenshot.png)
+![Design preview for the Chat app CSS illustration coding challenge](./images/display.png)
 
 ## Hello!
 
