@@ -50,7 +50,7 @@ async function submit(e) {
 
     // creates movable span
     movable = document.createElement("span");
-    movable.style.transition = "all " + time / 1000 + "s" + " linear";
+    movable.style.transition = "all " + time / 2000 + "s" + " ease";
     movable.classList.add("movable");
     document.body.appendChild(movable);
 
@@ -120,7 +120,7 @@ function reader() {
 // splits a text string up into substrings to a desired word count
 function listOfStrings(text) {
     const partials = [];
-    var starter = 0;
+    let starter = 0;
     for (let i in text) {
         i = Number(i);
         if (i === text.length - 1) {
@@ -128,7 +128,6 @@ function listOfStrings(text) {
             break;
         }
         if (text[i] === "\n" && text[i - 1] !== "\n") {
-            // partials.push(text.substring(starter, i) + " ");
             partials.push(text.substring(starter, i));
             starter = i + 1;
         }
@@ -145,7 +144,6 @@ function listOfStrings(text) {
             continue;
         }
         else if (text[i] === " ") {
-            // partials.push(text.substring(starter, i + 1));
             partials.push(text.substring(starter, i));
             starter = i + 1;
         }
