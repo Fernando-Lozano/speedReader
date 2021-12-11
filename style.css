@@ -6,10 +6,14 @@ html {
 }
 span {
     display: inline-block;
-    border-bottom: 2px solid white;
 }
 .fixed-bottom {
     height: 80px;
+}
+.movable {
+    width: 20px;
+    position: absolute;
+    border-bottom: 2px solid black;
 }
 .footerbtns {
     display: none;

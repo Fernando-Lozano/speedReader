@@ -7,9 +7,7 @@ const   header = document.querySelector("h1"),
         footbtns = document.querySelectorAll(".footerbtns"),
         loader = document.querySelector(".loader");
 
-let text,
-    speed,
-    submitted = false;
+let text, speed;
 
 async function submit(e) {
     e.preventDefault();
@@ -25,35 +23,46 @@ async function submit(e) {
     } else {
         var partials = listOfStrings(text);
     }
-    console.log(partials); // temp
     let div = document.createElement("div");
     content.appendChild(div);
 
     if (partials.length > 1400) {
         loader.classList.toggle("d-none");
-        await new Promise(res => {
-            setTimeout(res, 100);
+        await new Promise((res) => {
+        setTimeout(res, 100);
         });
     }
     for (let i = 0; i < partials.length; i++) {
         if (partials[i] === "\n") {
-            let br = document.createElement("br");
-            div.appendChild(br);
-        }
-        else {
-            let span = document.createElement("span");
-            span.textContent = partials[i];
-            div.append(span, " ");
+        let br = document.createElement("br");
+        div.appendChild(br);
+        } else {
+        let span = document.createElement("span");
+        span.textContent = partials[i];
+        div.append(span, " ");
         }
     }
     loader.classList.add("d-none");
     div.setAttribute("class", "mb-3");
 
+    time = (60 / speed) * 1000;
+    spans = document.querySelectorAll("span");
+
+    // creates movable span
+    movable = document.createElement("span");
+    movable.style.transition = "all " + time / 1000 + "s" + " linear";
+    movable.classList.add("movable");
+    document.body.appendChild(movable);
+
+    rect = spans[0].getBoundingClientRect();
+
+    movable.style.left = rect.x + rect.width / 2 - 10 + "px";
+    movable.style.top = document.documentElement.scrollTop + rect.y + rect.height - 2 + "px";
+
 
     for (button of footbtns) {
         button.classList.toggle("footerbtns");
     }
-    submitted = true;
     // starts reader
     footbtns[1].addEventListener("click", reader);
     // resets reader
@@ -61,37 +70,45 @@ async function submit(e) {
 }
 textArea.addEventListener("submit", submit);
 
-let init = true,
-    paused = true,
+let paused = true,
     inte,
     time,
     spans,
+    movable,
+    rect,
     reset = false;
     counter = 0;
 
+function reseter() {
+    if (counter > 0) {
+        paused = true;
+        rect = spans[0].getBoundingClientRect();
+        movable.style.left = rect.x + rect.width / 2 - 10 + "px";
+        movable.style.top = document.documentElement.scrollTop + rect.y + rect.height - 2 + "px";
+        counter = 0;
+        footbtns[1].innerHTML = '<i class="fas fa-play fa-lg"></i>';
+        clearInterval(inte);
+    }
+}
+
+function moveMarker() {
+    if (counter === spans.length - 1) {
+        reseter();
+        return;
+    }
+    counter++;
+
+    rect = spans[counter].getBoundingClientRect();
+
+    movable.style.left = rect.x + rect.width / 2 - 10 + "px";
+    movable.style.top = (document.documentElement.scrollTop + rect.y + rect.height - 2) + "px";
+}
 function reader() {
     paused = !paused;
-    if (init) {
-        time = (60 / speed) * 1000
-        spans = document.querySelectorAll("span");
-        init = false;
-    }
+
     if (!paused) {
         this.innerHTML = '<i class="fas fa-pause fa-lg"></i>';
-        inte = setInterval(() => {
-            if (counter > 0) spans[counter-1].style.borderBottom = "2px solid white";
-            if (counter < spans.length) spans[counter].style.borderBottom = "2px solid grey";
-            if (counter === spans.length) {
-                spans[counter-1].style.borderBottom = "2px solid white";
-                counter = 0;
-                init = true;
-                paused = true;
-                this.innerHTML = '<i class="fas fa-play fa-lg"></i>';
-                clearInterval(inte);
-                return;
-            }
-            counter++;
-        }, time);
+        inte = setInterval(moveMarker, time);
     }
     else {
         this.innerHTML = '<i class="fas fa-play fa-lg"></i>';
@@ -99,15 +116,6 @@ function reader() {
     }
 };
 
-function reseter() {
-    if (counter > 0) {
-        paused = true;
-        spans[counter - 1].style.borderBottom = "2px solid white";
-        counter = 0;
-        footbtns[1].innerHTML = '<i class="fas fa-play fa-lg"></i>';
-        clearInterval(inte);
-    }
-}
 
 // splits a text string up into substrings to a desired word count
 function listOfStrings(text) {
