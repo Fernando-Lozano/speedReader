@@ -43,7 +43,7 @@ function listOfStrings(text) {
         }
         // if new-line character and before not a new-line and not a space
         else if (text[i] === "\n" && text[i - 1] !== "\n" && text[i - 1] !== " ") {
-            partials.push(text.substring(starter, i), "\n");
+            partials.push(text.substring(starter, i));
             starter = i + 1;
         }
         // if two spaces in a row
@@ -55,8 +55,9 @@ function listOfStrings(text) {
             if (i !== 0) partials.push(text.substring(starter, i));
             starter = i + 1;
         }
-        else if (text[i] === "\n") {
-            partials.push("\n")
+        // if two new-lines in a row
+        else if (text[i] === "\n" && text[i - 1] === "\n") {
+            partials.push("\n", "\n")
             starter = i + 1;
         }
         else if (text[i] === "\t") {
