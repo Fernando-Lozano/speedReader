@@ -16,6 +16,7 @@ let text,
     spans,
     movable,
     rect,
+    step, // amount of words the marker skips
     counter = 0;
 
 // gets a fairy tale
@@ -75,7 +76,8 @@ async function submit(e) {
     submitBtn.style.display = "none"; // hides submit button
 
     text = e.target[0].value;
-    speed = e.target[1].value;
+    speed = Number(e.target[1].value);
+    step = Number(e.target[2].value) + 1;
     if (!text) {
         let story = await getStory();
         partials = listOfStrings(story);
@@ -109,7 +111,7 @@ async function submit(e) {
     loader.classList.add("d-none");
     div.setAttribute("class", "mb-3");
 
-    time = (60 / speed) * 1000;
+    time = (60 / speed * step) * 1000;
     spans = document.querySelectorAll(".toRead");
 
     // creates movable span
@@ -150,7 +152,7 @@ function moveMarker() {
         reset();
         return;
     }
-    counter++;
+    counter += step;
 
     rect = spans[counter].getBoundingClientRect();
     movable.style.left = rect.x + rect.width / 2 - 10 + "px";
